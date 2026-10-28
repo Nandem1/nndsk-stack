@@ -38,9 +38,10 @@ For a purely cosmetic or local change with no architectural/behavioral impact, d
 1. Inspect the repository's top-level organization, source entry points, existing documentation, package manifests, migrations, API schemas, authorization implementation, integrations, tests, and deployment configuration. Inspect selectively; avoid reading the entire repository blindly.
 2. Identify runtime systems and external dependencies, domain modules, real boundaries, data ownership, the actual read/write paths, key journeys, auth/permissions, and non-obvious invariants.
 3. Contrast existing documentation with code; distinguish implemented, planned, and uncertain behavior. Preserve existing documentation and conventions.
-4. Propose a **small** documentation map, scaled to the project. Do not manufacture empty categories or rigidly create six files.
-5. Unless the user requests immediate implementation, present the proposed files/diagrams first. If authorized, write the minimal docs, an entry-point `docs/00-home.md`, and navigable links to existing README/AGENTS/other notes.
-6. Verify link targets and Mermaid syntax where tooling is available. Do not claim runtime validation without running it.
+4. **Classify before archiving:** distinguish active architecture notes, normative contracts, operational guides, historical plans/audits, and tool-owned/generated paths. Check inbound references and maintenance obligations in `README.md`, `AGENTS.md`, `CLAUDE.md`, scripts, and workflows. A file is not historical merely because it was moved to `legacy/`. Do not claim `legacy/` is unmaintained while other instructions require maintaining files inside it. Verify current contracts/guides against code before moving or declaring them authoritative. Preserve user changes and avoid moving hardcoded paths without addressing their consumers. Resolve conflicts explicitly; do not silently rewrite authority.
+5. Propose a **small** documentation map, scaled to the project. Do not manufacture empty categories or rigidly create six files. If reorganization is needed, name which docs stay active, which become historical, and the references that must change. Never wholesale-archive existing docs by default.
+6. Unless the user requests immediate implementation, present the proposed files/diagrams first. If authorized, write the minimal docs, an entry-point `docs/00-home.md`, and navigable links to existing README/AGENTS/other notes.
+7. Verify link targets, references from agent instructions/scripts/workflows, and Mermaid syntax where tooling is available. Do not claim runtime validation without running it.
 
 Suggested topics **only if they add value**: architecture/boundaries, data plane, integrations/sync, auth/runtime flows, domain semantics, operations, and ADRs. See [starter-docs.md](references/starter-docs.md) for a small starting layout.
 
@@ -65,7 +66,7 @@ If docs and code disagree *before* the change, distinguish pre-existing drift fr
 
 1. Establish the base ref and inspect all changes, including uncommitted files when available. Do not assume `git diff main` includes untracked files; inspect status and those files separately.
 2. Trace each claimed boundary, API, auth, data, integration, runtime, and infra change back to source code and relevant tests/configuration.
-3. Compare updated docs/diagrams against the implemented control flow. Check missing and unnecessary doc updates.
+3. Compare updated docs/diagrams against the implemented control flow. Check missing and unnecessary doc updates. For documentation migrations, verify that active contracts, guides, agent instructions, and hardcoded consumers agree on each document's authority and location.
 4. Separate **new drift**, **pre-existing drift**, and **unable to verify**. Absence of proof is not proof of correctness.
 5. Assess impact-report accuracy. Emit `PASS` (grounded), `PARTIAL` (gaps/uncertainty), or `FAIL` (material inconsistency). Do not change files.
 
